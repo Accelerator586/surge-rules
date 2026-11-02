@@ -216,6 +216,7 @@ def update(root=ROOT):
             shutil.copyfile(staged / source["snapshot"], root / source["snapshot"])
         (root / "sources.lock.json").write_text(dump_json(lock))
         build(root)
+        (root / "docs").mkdir(exist_ok=True)
         (root / "docs" / "UPSTREAM-UPDATE.md").write_text(report)
         print(report)
     return True

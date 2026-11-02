@@ -1,4 +1,6 @@
 import importlib.util
+import contextlib
+import io
 from pathlib import Path
 import tempfile
 import shutil
@@ -83,6 +85,22 @@ class RulesTest(unittest.TestCase):
             self.assertEqual((root / "sources.lock.json").read_bytes(), original)
             self.assertEqual((root / "vendor/sukka/domestic.conf").read_bytes(),
                              (ROOT / "vendor/sukka/domestic.conf").read_bytes())
+
+    def test_successful_update_creates_report_in_fresh_checkout(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "repo"
+            shutil.copytree(ROOT, root, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+            if (root / "docs").exists():
+                shutil.rmtree(root / "docs")
+            source = rules.read_json(root / "sources.lock.json")["sources"]
+            payloads = [(root / item["snapshot"]).read_bytes() for item in source]
+            payloads[0] += b"\nDOMAIN-SUFFIX,new-domestic.example.com\n"
+            with patch.object(rules, "download", side_effect=payloads), contextlib.redirect_stdout(io.StringIO()):
+                self.assertTrue(rules.update(root))
+            rules.build(root, check=True)
+            report = (root / "docs/UPSTREAM-UPDATE.md").read_text()
+            self.assertIn("new-domestic.example.com", report)
+            self.assertIn("require review", report)
 
 
 if __name__ == "__main__":
