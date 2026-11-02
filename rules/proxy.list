@@ -1,0 +1,12 @@
+# 明确的代理例外，优先于 CN；不在这里加入宽泛的关键词。
+DOMAIN-SUFFIX,google.com
+DOMAIN-SUFFIX,googleapis.com
+DOMAIN-SUFFIX,gstatic.com
+DOMAIN-SUFFIX,googleusercontent.com
+DOMAIN-SUFFIX,firebase.google.cn
+DOMAIN-SUFFIX,firebaseapp.com
+DOMAIN-SUFFIX,web.app
+DOMAIN-SUFFIX,github.com
+DOMAIN-SUFFIX,githubusercontent.com
+DOMAIN-SUFFIX,githubassets.com
+DOMAIN-SUFFIX,stripe.com

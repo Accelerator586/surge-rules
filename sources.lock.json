@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "source_project": "https://github.com/SukkaW/Surge",
+  "sources": [
+    {
+      "id": "cn",
+      "url": "https://ruleset.skk.moe/List/non_ip/domestic.conf",
+      "snapshot": "vendor/sukka/domestic.conf",
+      "sha256": "33346c9173e9af4230d654eec45c37154c17e8d0240977eb853f535abce3858e",
+      "initial_snapshot_url": "https://raw.githubusercontent.com/SukkaLab/ruleset.skk.moe/fa49240ecc8567c79319ff347e8cd04c9b940939/List/non_ip/domestic.conf",
+      "minimum_domains": 100
+    },
+    {
+      "id": "ai",
+      "url": "https://ruleset.skk.moe/List/non_ip/ai.conf",
+      "snapshot": "vendor/sukka/ai.conf",
+      "sha256": "055e56209c88a9306be210813e9e3ef175fdff4b90aaf05768953673bfbc9aea",
+      "initial_snapshot_url": "https://raw.githubusercontent.com/SukkaLab/ruleset.skk.moe/fa49240ecc8567c79319ff347e8cd04c9b940939/List/non_ip/ai.conf",
+      "minimum_domains": 15
+    },
+    {
+      "id": "apple",
+      "url": "https://ruleset.skk.moe/List/non_ip/apple_services.conf",
+      "snapshot": "vendor/sukka/apple.conf",
+      "sha256": "9c32e8eb6e1d334a85b972791a0afc4b0fc81f57d3a80902a50c9168269f7602",
+      "initial_snapshot_url": "https://raw.githubusercontent.com/SukkaLab/ruleset.skk.moe/fa49240ecc8567c79319ff347e8cd04c9b940939/List/non_ip/apple_services.conf",
+      "minimum_domains": 5
+    }
+  ],
+  "initial_source_revision": "d46d9ca1a28e74f2a40f6c0bae93569f85c3aa75",
+  "initial_snapshot_revision": "fa49240ecc8567c79319ff347e8cd04c9b940939"
+}

@@ -1,0 +1,5 @@
+# 明确的国内服务补充；仅允许 DOMAIN / DOMAIN-SUFFIX。
+DOMAIN-SUFFIX,deepseek.com
+DOMAIN-SUFFIX,aliyun.com
+DOMAIN-SUFFIX,bilibili.com
+DOMAIN-SUFFIX,qidian.com

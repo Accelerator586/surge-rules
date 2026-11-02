@@ -1,0 +1,5 @@
+# 个人拦截补充；完整广告规则仍可单独订阅，见 README。
+DOMAIN-SUFFIX,doubleclick.net
+DOMAIN-SUFFIX,googlesyndication.com
+DOMAIN-SUFFIX,googleadservices.com
+DOMAIN,adservice.google.com

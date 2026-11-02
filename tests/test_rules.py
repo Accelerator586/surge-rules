@@ -1,0 +1,89 @@
+import importlib.util
+from pathlib import Path
+import tempfile
+import shutil
+import unittest
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location("rules", ROOT / "scripts/rules.py")
+rules = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(rules)
+
+
+class RulesTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.policy, cls.groups, _ = rules.collect()
+
+    def test_expected_services(self):
+        cases = {"www.baidu.com": "cn", "www.jd.com": "cn", "www.bilibili.com": "cn",
+                 "www.taobao.com": "cn", "www.qq.com": "cn", "api.deepseek.com": "cn",
+                 "api.openai.com": "ai", "api.anthropic.com": "ai", "openrouter.ai": "ai",
+                 "cursor.com": "ai", "api2.cursor.sh": "ai", "perplexity.ai": "ai",
+                 "gemini.google.com": "ai", "generativelanguage.googleapis.com": "ai",
+                 "copilot.microsoft.com": "ai", "api.github.com": "proxy",
+                 "github.com": "proxy", "stripe.com": "proxy", "www.apple.com": "apple",
+                 "icloud.com": "apple", "parsec.app": "parsec",
+                 "encryptedsni.com": "encrypted-sni", "pagead2.googlesyndication.com": "reject"}
+        for host, expected in cases.items():
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], expected)
+
+    def test_unknown_and_keyword_lookalikes_stay_proxy(self):
+        for host in ["random-service.invalid", "unrelated-baidu-check.invalid",
+                     "baidu.com.attacker.invalid", "openai.com.attacker.invalid",
+                     "unknown-service.com.cn", "203.0.113.123", "2001:db8::123"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "final")
+
+    def test_only_domain_rules_are_published(self):
+        self.assertGreater(len(self.groups["cn"]), 100)
+        for entries in self.groups.values():
+            for kind, name in entries:
+                self.assertIn(kind, rules.TYPES)
+                self.assertNotEqual(name, self.policy["ignored_source_domain"])
+
+    def test_local_rules_cannot_enable_keywords_processes_or_ips(self):
+        for line in ["DOMAIN-KEYWORD,baidu", "PROCESS-NAME,curl", "GEOIP,CN",
+                     "IP-ASN,4134", "IP-CIDR,0.0.0.0/0", "RULE-SET,https://example.com/a",
+                     "DOMAIN-SUFFIX,com.cn", "DOMAIN,1.2.3.4", "DOMAIN,example.com,DIRECT"]:
+            with self.subTest(line=line), self.assertRaises(ValueError):
+                rules.parse(line, group="cn", policy=self.policy)
+
+    def test_suffix_matches_at_label_boundary(self):
+        entry = ("DOMAIN-SUFFIX", "baidu.com")
+        self.assertTrue(rules.matches("news.baidu.com", entry))
+        self.assertFalse(rules.matches("evilbaidu.com", entry))
+        self.assertFalse(rules.matches("baidu.com.invalid", entry))
+
+    def test_build_is_reproducible_and_every_remote_rule_is_no_resolve(self):
+        self.assertEqual(rules.render(), rules.render())
+        snippet = rules.render()["surge-rules.conf"]
+        active = [x for x in snippet.splitlines() if x and not x.startswith("#")]
+        self.assertEqual(active[-1], "FINAL,Proxy,dns-failed")
+        self.assertTrue(all(",no-resolve," in x for x in active[:-1]))
+
+    def test_tampered_source_fails_closed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "repo"
+            shutil.copytree(ROOT, root, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+            (root / "vendor/sukka/domestic.conf").write_text("DOMAIN-SUFFIX,com\n")
+            with self.assertRaisesRegex(ValueError, "integrity mismatch"):
+                rules.collect(root)
+
+    def test_failed_upstream_update_does_not_change_pinned_files(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "repo"
+            shutil.copytree(ROOT, root, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+            original = (root / "sources.lock.json").read_bytes()
+            with patch.object(rules, "download", side_effect=[b"DOMAIN,example.com\n", OSError("offline")]):
+                with self.assertRaises(OSError):
+                    rules.update(root)
+            self.assertEqual((root / "sources.lock.json").read_bytes(), original)
+            self.assertEqual((root / "vendor/sukka/domestic.conf").read_bytes(),
+                             (ROOT / "vendor/sukka/domestic.conf").read_bytes())
+
+
+if __name__ == "__main__":
+    unittest.main()

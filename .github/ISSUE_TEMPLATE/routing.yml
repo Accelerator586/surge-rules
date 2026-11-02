@@ -1,0 +1,22 @@
+name: Routing correction
+description: Report a public service domain assigned to the wrong group
+body:
+  - type: input
+    id: domain
+    attributes:
+      label: Public service domain
+      description: Domain only. Do not paste a complete URL, token, private hostname, or live profile.
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: Expected group
+      placeholder: CN / AI-Services / Apple / Parsec / Proxy / REJECT
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Reason and current matched rule
+      description: Include a redacted rule-explanation result if available.
