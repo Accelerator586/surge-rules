@@ -1,0 +1,3 @@
+# 经确认的广告误拦截例外，必须放在外部广告规则之前。
+# juejin.cn: 用户要求直连；Advertising_Domain.list 的后缀规则误拦截主站。
+DOMAIN-SUFFIX,juejin.cn

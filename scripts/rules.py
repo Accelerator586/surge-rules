@@ -13,7 +13,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parents[1]
 TYPES = {"DOMAIN", "DOMAIN-SUFFIX"}
 # Service groups precede the general proxy override, and all precede CN.
-ORDER = ["reject", "ai", "apple", "parsec", "encrypted-sni", "proxy", "cn"]
+ORDER = ["cn-allow", "reject", "ai", "apple", "parsec", "encrypted-sni", "proxy", "cn"]
 
 
 def read_json(path):
@@ -46,6 +46,8 @@ def domain(value):
 
 def exclusions(policy, group):
     # Single-label and public suffix exceptions are skipped before domain().
+    if group == "cn-allow":
+        group = "cn"
     return {v.encode("idna").decode("ascii").lower()
             for v in policy.get("exclude", {}).get(group, [])}
 
@@ -133,6 +135,8 @@ def render(root=ROOT):
                                           "source_audit": audit})
     base = f"https://raw.githubusercontent.com/{policy['repository']}/main/dist"
     lines = ["# Insert into your existing [Rule] section; keep private LAN/home rules locally.",
+             "# Put cn-allow.list BEFORE any external advertising rules.",
+             "# Put the remaining subscriptions AFTER external advertising rules.",
              "# Keep the existing Figma-specific rules before these general service rules."]
     for group in ORDER:
         lines.append(f"RULE-SET,{base}/{group}.list,{policy['policies'][group]},no-resolve,update-interval=3600")

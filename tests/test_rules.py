@@ -19,7 +19,8 @@ class RulesTest(unittest.TestCase):
         cls.policy, cls.groups, _ = rules.collect()
 
     def test_expected_services(self):
-        cases = {"www.baidu.com": "cn", "www.jd.com": "cn", "www.bilibili.com": "cn",
+        cases = {"juejin.cn": "cn-allow", "api.juejin.cn": "cn-allow",
+                 "www.baidu.com": "cn", "www.jd.com": "cn", "www.bilibili.com": "cn",
                  "www.taobao.com": "cn", "www.qq.com": "cn", "api.deepseek.com": "cn",
                  "api.openai.com": "ai", "api.anthropic.com": "ai", "openrouter.ai": "ai",
                  "cursor.com": "ai", "api2.cursor.sh": "ai", "perplexity.ai": "ai",
@@ -58,6 +59,19 @@ class RulesTest(unittest.TestCase):
         self.assertTrue(rules.matches("news.baidu.com", entry))
         self.assertFalse(rules.matches("evilbaidu.com", entry))
         self.assertFalse(rules.matches("baidu.com.invalid", entry))
+
+    def test_reviewed_cn_allow_precedes_adblock_without_broadening_matches(self):
+        groups = {group: set(entries) for group, entries in self.groups.items()}
+        groups["reject"].add(("DOMAIN-SUFFIX", "juejin.cn"))
+        for host in ["juejin.cn", "api.juejin.cn"]:
+            self.assertEqual(rules.explain(host, groups)[0], "cn-allow")
+        for host in ["juejin.cn.attacker.invalid", "fake-juejin.cn"]:
+            self.assertEqual(rules.explain(host, groups)[0], "final")
+        snippet = rules.render()["surge-rules.conf"]
+        active = [line for line in snippet.splitlines() if line and not line.startswith("#")]
+        self.assertIn("/cn-allow.list,CN,no-resolve,", active[0])
+        with self.assertRaises(ValueError):
+            rules.parse("DOMAIN-SUFFIX,com.cn", group="cn-allow", policy=self.policy)
 
     def test_build_is_reproducible_and_every_remote_rule_is_no_resolve(self):
         self.assertEqual(rules.render(), rules.render())
