@@ -8,6 +8,7 @@
 
 | 文件 | Surge 分组 | 用途 |
 | --- | --- | --- |
+| `dist/cn-allow.list` | `CN` | 已确认的广告误拦截例外，放在外部广告规则前 |
 | `dist/reject.list` | `REJECT` | 少量个人广告拦截补充 |
 | `dist/ai.list` | `AI-Services` | AI 服务及已有的 Discord / Midjourney 分类 |
 | `dist/apple.list` | `Apple` | Apple 服务 |
@@ -24,7 +25,7 @@
 
 1. 保留本机的 `[Proxy]` 和 `[Proxy Group]`，确认存在上表的分组。分组的直连/代理选择仍由本机控制。
 2. 保留本机的局域网、回家网段和私人例外；IP 规则引用保持 `no-resolve`。
-3. 将 `dist/surge-rules.conf` 中的规则加入现有 `[Rule]`。它是规则片段，不是完整配置，也不能作为模块导入。
+3. 将 `dist/surge-rules.conf` 中的规则加入现有 `[Rule]`。其中 `cn-allow.list` 必须放在所有外部广告规则之前，其他订阅放在外部广告规则之后。它是规则片段，不是完整配置，也不能作为模块导入。
 4. 保留现有 Figma 专属规则，并放在通用代理/CN 规则之前。移除被替换的旧 CN/AI/Apple 订阅，以免旧的宽泛直连规则继续抢先命中。
 5. `[Rule]` 只有一个最后的 `FINAL,Proxy,dns-failed`。使用规则模式。
 
@@ -38,7 +39,7 @@
 RULE-SET,https://raw.githubusercontent.com/Accelerator586/surge-rules/main/dist/cn.list,CN,no-resolve,update-interval=3600
 ```
 
-完整广告拦截并未包含在仅有少量补充的 `reject.list` 中。可继续单独订阅一套广告主规则，放在服务放行规则之前，并避免同时堆叠多套广告主规则。仓库不启用 MITM，也不修改本机的解密设置。
+完整广告拦截并未包含在仅有少量补充的 `reject.list` 中。可继续单独订阅一套广告主规则，放在 `cn-allow.list` 之后、其他服务规则之前，并避免同时堆叠多套广告主规则。仅将已确认的误拦截域名放入 `rules/cn-allow.list`，不要将整个 CN 集合移到广告规则前。仓库不启用 MITM，也不修改本机的解密设置。
 
 `dist/validation.conf` 仅用于 Surge 语法检查。它将所有组指向 DIRECT，不能用作生产代理配置。
 
