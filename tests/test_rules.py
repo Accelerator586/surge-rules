@@ -40,6 +40,17 @@ class RulesTest(unittest.TestCase):
             with self.subTest(host=host):
                 self.assertEqual(rules.explain(host, self.groups)[0], "final")
 
+    def test_xiaomi_account_interconnect_and_device_services_use_cn(self):
+        for host in ["account.xiaomi.com", "api.account.xiaomi.com",
+                     "static.account.xiaomi.com", "cn-device.interconnect.miui.com",
+                     "hyperos.mi.com", "api.io.mi.com", "miot-spec.org", "miwifi.com",
+                     "mifile.cn", "mi-img.com", "mipush.com", "xiaomiwear.com", "mios.cn"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "cn")
+        for host in ["xiaomi.com.attacker.invalid", "not-xiaomi.invalid", "miui.com.attacker.invalid"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "final")
+
     def test_only_domain_rules_are_published(self):
         self.assertGreater(len(self.groups["cn"]), 100)
         for entries in self.groups.values():
