@@ -51,6 +51,16 @@ class RulesTest(unittest.TestCase):
             with self.subTest(host=host):
                 self.assertEqual(rules.explain(host, self.groups)[0], "final")
 
+    def test_wechat_public_services_and_miniprograms_use_cn(self):
+        for host in ["servicewechat.com", "res.servicewechat.com", "wechat.com", "wechatpay.com",
+                     "wechatlegal.net", "wechatos.net", "weixin.com", "weixinbridge.com",
+                     "weixinsxy.com", "mp.weixin.qq.com", "search.wxqcloud.qq.com"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "cn")
+        for host in ["servicewechat.com.attacker.invalid", "fake-wechat.invalid"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "final")
+
     def test_only_domain_rules_are_published(self):
         self.assertGreater(len(self.groups["cn"]), 100)
         for entries in self.groups.values():
