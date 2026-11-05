@@ -675,6 +675,7 @@ DOMAIN-SUFFIX,sandai.net
 DOMAIN-SUFFIX,sankuai.com
 DOMAIN-SUFFIX,saxyit.com
 DOMAIN-SUFFIX,segmentfault.com
+DOMAIN-SUFFIX,servicewechat.com
 DOMAIN-SUFFIX,sevencdn.com
 DOMAIN-SUFFIX,sharepoint.cn
 DOMAIN-SUFFIX,shifen.com
@@ -779,6 +780,10 @@ DOMAIN-SUFFIX,wangsu.com
 DOMAIN-SUFFIX,weathercn.com
 DOMAIN-SUFFIX,webank.com
 DOMAIN-SUFFIX,webok.net
+DOMAIN-SUFFIX,wechat.com
+DOMAIN-SUFFIX,wechatlegal.net
+DOMAIN-SUFFIX,wechatos.net
+DOMAIN-SUFFIX,wechatpay.com
 DOMAIN-SUFFIX,wegame.com
 DOMAIN-SUFFIX,wegameplus.com
 DOMAIN-SUFFIX,weibo.cn
@@ -787,6 +792,7 @@ DOMAIN-SUFFIX,weibocdn.com
 DOMAIN-SUFFIX,weidian.com
 DOMAIN-SUFFIX,weixin.com
 DOMAIN-SUFFIX,weixinbridge.com
+DOMAIN-SUFFIX,weixinsxy.com
 DOMAIN-SUFFIX,weiyun.com
 DOMAIN-SUFFIX,west.cn
 DOMAIN-SUFFIX,wifi8.com

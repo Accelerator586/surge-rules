@@ -91,6 +91,8 @@ python3 -m unittest discover -s tests -v
 
 小米账号、互联和设备服务进入 CN。macOS“小米互联服务”的整个应用直连例外及其作用范围，见 [小米服务说明](docs/XIAOMI.md)。
 
+微信主程序、内置网页、小程序和辅助进程整体通过 CN 的本机例外，见 [微信服务说明](docs/WECHAT.md)。
+
 可以在 GitHub 提交 Routing correction issue，也可以在 Codex 中说明“哪个公开域名应进入哪个组”。维护时补充规则和对应的回归案例，检查通过后提交 PR。
 
 新增直连例外需要说明服务归属。不要为修复一个子域名而直接放行整个平台、共享云后缀或应用的全部进程流量。
