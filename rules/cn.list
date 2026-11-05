@@ -3,3 +3,27 @@ DOMAIN-SUFFIX,deepseek.com
 DOMAIN-SUFFIX,aliyun.com
 DOMAIN-SUFFIX,bilibili.com
 DOMAIN-SUFFIX,qidian.com
+
+# Xiaomi accounts, HyperConnect, device APIs, push, and service resources.
+# Keep these explicit additions even when the upstream domestic list changes.
+DOMAIN-SUFFIX,mi.com
+DOMAIN-SUFFIX,mi.cn
+DOMAIN-SUFFIX,mi.com.cn
+DOMAIN-SUFFIX,xiaomi.com
+DOMAIN-SUFFIX,xiaomi.cn
+DOMAIN-SUFFIX,xiaomi.net
+DOMAIN-SUFFIX,miui.com
+DOMAIN-SUFFIX,miui.cn
+DOMAIN-SUFFIX,miwifi.com
+DOMAIN-SUFFIX,mifile.cn
+DOMAIN-SUFFIX,mi-img.com
+DOMAIN-SUFFIX,mi-idc.com
+DOMAIN-SUFFIX,mijia.tech
+DOMAIN-SUFFIX,miot-spec.org
+DOMAIN-SUFFIX,mipush.com
+DOMAIN-SUFFIX,xiaomiwear.com
+DOMAIN-SUFFIX,xiaomiev.com
+DOMAIN-SUFFIX,xiaomixiaoai.com
+DOMAIN-SUFFIX,xiaomiyoupin.com
+DOMAIN-SUFFIX,mios.cn
+DOMAIN-SUFFIX,mios.com.cn

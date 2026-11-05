@@ -526,7 +526,9 @@ DOMAIN-SUFFIX,mgtv.com
 DOMAIN-SUFFIX,mi-fds.com
 DOMAIN-SUFFIX,mi-idc.com
 DOMAIN-SUFFIX,mi-img.com
+DOMAIN-SUFFIX,mi.cn
 DOMAIN-SUFFIX,mi.com
+DOMAIN-SUFFIX,mi.com.cn
 DOMAIN-SUFFIX,mifile.cn
 DOMAIN-SUFFIX,migu.cn
 DOMAIN-SUFFIX,migucloud.com
@@ -534,8 +536,12 @@ DOMAIN-SUFFIX,miguvideo.com
 DOMAIN-SUFFIX,mihayo.com
 DOMAIN-SUFFIX,mihoyo.com
 DOMAIN-SUFFIX,mijia.tech
+DOMAIN-SUFFIX,mios.cn
+DOMAIN-SUFFIX,mios.com.cn
 DOMAIN-SUFFIX,miot-spec.org
 DOMAIN-SUFFIX,mipay.com
+DOMAIN-SUFFIX,mipush.com
+DOMAIN-SUFFIX,miui.cn
 DOMAIN-SUFFIX,miui.com
 DOMAIN-SUFFIX,miwifi.com
 DOMAIN-SUFFIX,miyoushe.com
@@ -808,6 +814,7 @@ DOMAIN-SUFFIX,xiaomi.cn
 DOMAIN-SUFFIX,xiaomi.com
 DOMAIN-SUFFIX,xiaomi.net
 DOMAIN-SUFFIX,xiaomiev.com
+DOMAIN-SUFFIX,xiaomiwear.com
 DOMAIN-SUFFIX,xiaomixiaoai.com
 DOMAIN-SUFFIX,xiaomiyoupin.com
 DOMAIN-SUFFIX,xiaote.net
