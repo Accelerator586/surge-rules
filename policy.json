@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "repository": "Accelerator586/surge-rules",
-  "groups": ["cn-allow", "proxy", "reject", "ai", "apple", "parsec", "encrypted-sni", "cn"],
+  "groups": ["cn-allow", "proxy-allow", "proxy", "reject", "ai", "apple", "parsec", "encrypted-sni", "cn"],
   "policies": {
-    "cn-allow": "CN", "proxy": "Proxy", "reject": "REJECT", "ai": "AI-Services",
+    "cn-allow": "CN", "proxy-allow": "Proxy", "proxy": "Proxy", "reject": "REJECT", "ai": "AI-Services",
     "apple": "Apple", "parsec": "Parsec", "encrypted-sni": "EncryptedSNI", "cn": "CN"
   },
   "exclude": {

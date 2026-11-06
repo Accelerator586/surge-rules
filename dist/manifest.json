@@ -2,6 +2,7 @@
   "schema": 1,
   "counts": {
     "cn-allow": 1,
+    "proxy-allow": 5,
     "reject": 4,
     "ai": 65,
     "apple": 16,
