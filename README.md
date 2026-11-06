@@ -9,7 +9,7 @@
 | 文件 | Surge 分组 | 用途 |
 | --- | --- | --- |
 | `dist/cn-allow.list` | `CN` | 已确认的广告误拦截例外，放在外部广告规则前 |
-| `dist/proxy-allow.list` | `Proxy` | 开发控制台及 API 的精确代理例外，放在外部广告规则前 |
+| `dist/proxy-allow.list` | `Developer` | 开发控制台、登录及数据 API 的精确代理例外，放在外部广告规则前 |
 | `dist/reject.list` | `REJECT` | 少量个人广告拦截补充 |
 | `dist/ai.list` | `AI-Services` | AI 服务及已有的 Discord / Midjourney 分类 |
 | `dist/apple.list` | `Apple` | Apple 服务 |
@@ -29,6 +29,8 @@
 3. 将 `dist/surge-rules.conf` 中的规则加入现有 `[Rule]`。其中 `cn-allow.list` 和 `proxy-allow.list` 必须放在所有外部广告规则之前，其他订阅放在外部广告规则之后。它是规则片段，不是完整配置，也不能作为模块导入。
 4. 保留现有 Figma 专属规则，并放在通用代理/CN 规则之前。移除被替换的旧 CN/AI/Apple 订阅，以免旧的宽泛直连规则继续抢先命中。
 5. `[Rule]` 只有一个最后的 `FINAL,Proxy,dns-failed`。使用规则模式。
+
+`Developer` 默认跟随主线路，例如在 `[Proxy Group]` 中加入 `Developer = select, Master-Router`。旧配置如果仍将 `proxy-allow.list` 指向 Proxy，也能继续读取同一份域名列表；要独立切换开发者出口时，增加 Developer 分组并修改引用处的策略。
 
 订阅文件基址：
 
@@ -94,7 +96,7 @@ python3 -m unittest discover -s tests -v
 
 微信主程序、内置网页、小程序和辅助进程整体通过 CN 的本机例外，见 [微信服务说明](docs/WECHAT.md)。
 
-Firebase / Google Analytics 开发控制台被广告规则误拦截时，使用精确的前置代理例外，见 [Firebase 控制台说明](docs/FIREBASE.md)。
+Firebase / Google Analytics、Google Play Console、Galaxy Store Seller Portal 的开发者规则、数据接口及验证范围，见 [开发者服务说明](docs/DEVELOPER.md)。Firebase 误拦截的背景见 [Firebase 控制台说明](docs/FIREBASE.md)。
 
 可以在 GitHub 提交 Routing correction issue，也可以在 Codex 中说明“哪个公开域名应进入哪个组”。维护时补充规则和对应的回归案例，检查通过后提交 PR。
 

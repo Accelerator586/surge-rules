@@ -1,14 +1,49 @@
 {
   "schema": 1,
   "repository": "Accelerator586/surge-rules",
-  "groups": ["cn-allow", "proxy-allow", "proxy", "reject", "ai", "apple", "parsec", "encrypted-sni", "cn"],
+  "groups": [
+    "cn-allow",
+    "proxy-allow",
+    "proxy",
+    "reject",
+    "ai",
+    "apple",
+    "parsec",
+    "encrypted-sni",
+    "cn"
+  ],
   "policies": {
-    "cn-allow": "CN", "proxy-allow": "Proxy", "proxy": "Proxy", "reject": "REJECT", "ai": "AI-Services",
-    "apple": "Apple", "parsec": "Parsec", "encrypted-sni": "EncryptedSNI", "cn": "CN"
+    "cn-allow": "CN",
+    "proxy-allow": "Developer",
+    "proxy": "Proxy",
+    "reject": "REJECT",
+    "ai": "AI-Services",
+    "apple": "Apple",
+    "parsec": "Parsec",
+    "encrypted-sni": "EncryptedSNI",
+    "cn": "CN"
   },
   "exclude": {
-    "cn": ["cn", "com.cn", "net.cn", "org.cn", "gov.cn", "edu.cn", "ac.cn", "mil.cn", "公司.cn", "网络.cn", "中国", "aliyuncs.com", "alicdn.com", "myqcloud.com", "cloudfront.net"],
-    "ai": ["api.github.com"]
+    "cn": [
+      "cn",
+      "com.cn",
+      "net.cn",
+      "org.cn",
+      "gov.cn",
+      "edu.cn",
+      "ac.cn",
+      "mil.cn",
+      "公司.cn",
+      "网络.cn",
+      "中国",
+      "aliyuncs.com",
+      "alicdn.com",
+      "myqcloud.com",
+      "cloudfront.net"
+    ],
+    "ai": [
+      "api.github.com"
+    ]
   },
   "ignored_source_domain": "7h15.ru1353t.1s.m4d3.by.5ukk4w.skk.moe"
 }

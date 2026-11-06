@@ -111,6 +111,33 @@ class RulesTest(unittest.TestCase):
         snippet = rules.render()["surge-rules.conf"]
         self.assertLess(snippet.index("/proxy-allow.list,"), snippet.index("/reject.list,"))
 
+    def test_developer_console_data_and_seller_services_have_dedicated_policy(self):
+        self.assertEqual(self.policy["policies"]["proxy-allow"], "Developer")
+        cases = ["console.firebase.google.com", "firebaseanalytics.clients6.google.com",
+                 "firebasecrashlytics.googleapis.com", "firestore.googleapis.com",
+                 "firebasestorage.googleapis.com", "firebaseappdistribution.googleapis.com",
+                 "play.google.com", "playconsole.google.com", "androidpublisher.googleapis.com",
+                 "playdeveloperreporting.googleapis.com", "playconsolestatsfrontend-pa.clients6.google.com",
+                 "seller.samsungapps.com", "devapi.samsungapps.com", "account.samsung.com",
+                 "accounts.google.com"]
+        groups = {group: set(entries) for group, entries in self.groups.items()}
+        for host in cases:
+            groups["reject"].add(("DOMAIN-SUFFIX", host))
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, groups)[0], "proxy-allow")
+        for host in ["random.analytics.invalid", "seller.samsungapps.com.attacker.invalid"]:
+            self.assertEqual(rules.explain(host, groups)[0], "final")
+        self.assertEqual(rules.explain("pagead2.googlesyndication.com", groups)[0], "reject")
+
+    def test_new_developer_domain_requires_matching_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "repo"
+            shutil.copytree(ROOT, root, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+            with (root / "rules/proxy-allow.list").open("a") as f:
+                f.write("\nDOMAIN,unreviewed.example.com\n")
+            with self.assertRaisesRegex(ValueError, "evidence registry differ"):
+                rules.collect(root)
+
     def test_build_is_reproducible_and_every_remote_rule_is_no_resolve(self):
         self.assertEqual(rules.render(), rules.render())
         snippet = rules.render()["surge-rules.conf"]

@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "reviewed_on": "2026-11-06",
+  "entries": [
+    {
+      "category": "Previously reviewed Analytics console/API exceptions",
+      "hosts": [
+        "analytics.google.com",
+        "firebaseanalytics.googleapis.com",
+        "analyticsadmin.googleapis.com",
+        "analyticsdata.googleapis.com",
+        "analyticsreporting.googleapis.com"
+      ],
+      "evidence": "Existing reviewed console/API exception list",
+      "references": [
+        "https://github.com/Accelerator586/surge-rules/pull/4"
+      ]
+    },
+    {
+      "category": "Google sign-in",
+      "hosts": [
+        "accounts.google.com",
+        "oauth2.googleapis.com",
+        "identitytoolkit.googleapis.com",
+        "securetoken.googleapis.com"
+      ],
+      "evidence": "Official service reference, public endpoint discovery, or publicly fetched portal/login resources",
+      "references": [
+        "https://firebase.google.com/docs/reference/rest/auth",
+        "https://developers.google.com/identity/protocols/oauth2/web-server"
+      ]
+    },
+    {
+      "category": "Firebase console and public data APIs",
+      "hosts": [
+        "console.firebase.google.com",
+        "firebase.google.com",
+        "firebase.googleapis.com",
+        "firebasecrashlytics.googleapis.com"
+      ],
+      "evidence": "Official service reference, public endpoint discovery, or publicly fetched portal/login resources",
+      "references": [
+        "https://firebase.google.com/docs/reference/firebase-management/rest",
+        "https://firebase.google.com/docs/reference/crashlytics/rest"
+      ]
+    },
+    {
+      "category": "Firebase browser RPC hosts observed on this Mac",
+      "hosts": [
+        "firebase.clients6.google.com",
+        "firebaseanalytics.clients6.google.com",
+        "firebaseextensions.clients6.google.com",
+        "firebasestorage.clients6.google.com",
+        "firebaseml.clients6.google.com",
+        "firebasedurablelinks-pa.clients6.google.com"
+      ],
+      "evidence": "Host-only browser connection metadata and runtime routing audit on 2026-11-06; Firebase Analytics RPC was identified by a blocked console-host rule probe. No cookies, URL parameters, project IDs, or tokens recorded.",
+      "references": [
+        "https://console.firebase.google.com/"
+      ]
+    },
+    {
+      "category": "Google Play Console and public APIs",
+      "hosts": [
+        "play.google.com",
+        "playconsole.google.com",
+        "androidpublisher.googleapis.com",
+        "playdeveloperreporting.googleapis.com"
+      ],
+      "evidence": "Official service reference, public endpoint discovery, or publicly fetched portal/login resources",
+      "references": [
+        "https://play.google.com/console/",
+        "https://developers.google.com/android-publisher/api-ref/rest",
+        "https://developers.google.com/play/developer/reporting/reference/rest"
+      ]
+    },
+    {
+      "category": "Google Play browser RPC hosts observed on this Mac",
+      "hosts": [
+        "playconsoleappmonetization-pa.clients6.google.com",
+        "playconsoleapps-pa.clients6.google.com",
+        "playconsoleaudiences-pa.clients6.google.com",
+        "playconsolehealth-pa.clients6.google.com",
+        "playconsoleliveops-pa.clients6.google.com",
+        "playconsoleplatform-pa.clients6.google.com",
+        "playconsolestatsfrontend-pa.clients6.google.com"
+      ],
+      "evidence": "Host-only browser connection metadata and runtime routing audit on 2026-11-06; Firebase Analytics RPC was identified by a blocked console-host rule probe. No cookies, URL parameters, project IDs, or tokens recorded.",
+      "references": [
+        "https://play.google.com/console/"
+      ]
+    },
+    {
+      "category": "Samsung Seller Portal, sign-in, and official Developer API",
+      "hosts": [
+        "seller.samsungapps.com",
+        "developer.samsung.com",
+        "account.samsung.com",
+        "google.account.samsung.com",
+        "devapi.samsungapps.com",
+        "img.samsungapps.com"
+      ],
+      "evidence": "Official service reference, public endpoint discovery, or publicly fetched portal/login resources",
+      "references": [
+        "https://seller.samsungapps.com/main/sellerMain.as",
+        "https://developer.samsung.com/galaxy-store/galaxy-store-developer-api/use-the-access-token.html"
+      ]
+    },
+    {
+      "category": "Firebase public project/data APIs verified via discovery documents",
+      "hosts": [
+        "firebaseappdistribution.googleapis.com",
+        "firebasehosting.googleapis.com",
+        "firebaseremoteconfig.googleapis.com",
+        "firebaserules.googleapis.com",
+        "firestore.googleapis.com",
+        "firebasestorage.googleapis.com"
+      ],
+      "evidence": "Official service reference, public endpoint discovery, or publicly fetched portal/login resources",
+      "references": [
+        "https://firebaseappdistribution.googleapis.com/$discovery/rest?version=v1",
+        "https://firebasehosting.googleapis.com/$discovery/rest?version=v1beta1",
+        "https://firebaseremoteconfig.googleapis.com/$discovery/rest?version=v1",
+        "https://firebaserules.googleapis.com/$discovery/rest?version=v1",
+        "https://firestore.googleapis.com/$discovery/rest?version=v1",
+        "https://firebasestorage.googleapis.com/$discovery/rest?version=v1beta"
+      ]
+    }
+  ]
+}
