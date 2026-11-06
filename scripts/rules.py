@@ -91,6 +91,15 @@ def collect(root=ROOT):
         rules, _ = parse((root / "rules" / f"{group}.list").read_text(),
                          group=group, policy=policy)
         groups[group] = rules
+    evidence = read_json(root / "developer-sources.json")
+    recorded = [domain(host) for entry in evidence["entries"] for host in entry["hosts"]]
+    if evidence.get("schema") != 1 or not recorded or len(recorded) != len(set(recorded)):
+        raise ValueError("Invalid or duplicate developer-domain evidence")
+    published = {name for _, name in groups["proxy-allow"]}
+    if not published or published != set(recorded):
+        raise ValueError("Developer domains and evidence registry differ; update developer-sources.json")
+    if any(not entry.get("evidence") or not entry.get("references") for entry in evidence["entries"]):
+        raise ValueError("Developer domain evidence requires a reason and source reference")
     for source in lock["sources"]:
         path = root / source["snapshot"]
         if not path.resolve().is_relative_to((root / "vendor").resolve()):

@@ -1,7 +1,61 @@
-# Exact developer-console/API exceptions; evaluate before external ad blocking.
-# Do not replace these with a google.com suffix or unblock general collection hosts.
+# Reviewed developer consoles, sign-in, data APIs, and console RPC hosts.
+# Exact DOMAIN entries only; place this subscription BEFORE external advertising.
+# Evidence is tracked in developer-sources.json.
+
+# Previously reviewed Analytics console/API exceptions
 DOMAIN,analytics.google.com
 DOMAIN,firebaseanalytics.googleapis.com
 DOMAIN,analyticsadmin.googleapis.com
 DOMAIN,analyticsdata.googleapis.com
 DOMAIN,analyticsreporting.googleapis.com
+
+# Google sign-in
+DOMAIN,accounts.google.com
+DOMAIN,oauth2.googleapis.com
+DOMAIN,identitytoolkit.googleapis.com
+DOMAIN,securetoken.googleapis.com
+
+# Firebase console and public data APIs
+DOMAIN,console.firebase.google.com
+DOMAIN,firebase.google.com
+DOMAIN,firebase.googleapis.com
+DOMAIN,firebasecrashlytics.googleapis.com
+
+# Firebase browser RPC hosts observed on this Mac
+DOMAIN,firebase.clients6.google.com
+DOMAIN,firebaseanalytics.clients6.google.com
+DOMAIN,firebaseextensions.clients6.google.com
+DOMAIN,firebasestorage.clients6.google.com
+DOMAIN,firebaseml.clients6.google.com
+DOMAIN,firebasedurablelinks-pa.clients6.google.com
+
+# Google Play Console and public APIs
+DOMAIN,play.google.com
+DOMAIN,playconsole.google.com
+DOMAIN,androidpublisher.googleapis.com
+DOMAIN,playdeveloperreporting.googleapis.com
+
+# Google Play browser RPC hosts observed on this Mac
+DOMAIN,playconsoleappmonetization-pa.clients6.google.com
+DOMAIN,playconsoleapps-pa.clients6.google.com
+DOMAIN,playconsoleaudiences-pa.clients6.google.com
+DOMAIN,playconsolehealth-pa.clients6.google.com
+DOMAIN,playconsoleliveops-pa.clients6.google.com
+DOMAIN,playconsoleplatform-pa.clients6.google.com
+DOMAIN,playconsolestatsfrontend-pa.clients6.google.com
+
+# Samsung Seller Portal, sign-in, and official Developer API
+DOMAIN,seller.samsungapps.com
+DOMAIN,developer.samsung.com
+DOMAIN,account.samsung.com
+DOMAIN,google.account.samsung.com
+DOMAIN,devapi.samsungapps.com
+DOMAIN,img.samsungapps.com
+
+# Firebase public project/data APIs verified via discovery documents
+DOMAIN,firebaseappdistribution.googleapis.com
+DOMAIN,firebasehosting.googleapis.com
+DOMAIN,firebaseremoteconfig.googleapis.com
+DOMAIN,firebaserules.googleapis.com
+DOMAIN,firestore.googleapis.com
+DOMAIN,firebasestorage.googleapis.com
