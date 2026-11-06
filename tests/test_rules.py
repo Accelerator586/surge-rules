@@ -94,6 +94,23 @@ class RulesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             rules.parse("DOMAIN-SUFFIX,com.cn", group="cn-allow", policy=self.policy)
 
+    def test_console_proxy_allow_is_exact_and_precedes_adblock(self):
+        groups = {group: set(entries) for group, entries in self.groups.items()}
+        console_hosts = ["analytics.google.com", "firebaseanalytics.googleapis.com",
+                         "analyticsadmin.googleapis.com", "analyticsdata.googleapis.com",
+                         "analyticsreporting.googleapis.com"]
+        for host in console_hosts:
+            groups["reject"].add(("DOMAIN-SUFFIX", host))
+            self.assertEqual(rules.explain(host, groups)[0], "proxy-allow")
+        groups["reject"].add(("DOMAIN-SUFFIX", "google-analytics.com"))
+        self.assertEqual(rules.explain("www.google-analytics.com", groups)[0], "reject")
+        self.assertEqual(rules.explain("sub.analytics.google.com", groups)[0], "reject")
+        self.assertEqual(rules.explain("analytics.google.com.attacker.invalid", groups)[0], "final")
+        with self.assertRaises(ValueError):
+            rules.parse("DOMAIN-SUFFIX,google.com", group="proxy-allow", policy=self.policy)
+        snippet = rules.render()["surge-rules.conf"]
+        self.assertLess(snippet.index("/proxy-allow.list,"), snippet.index("/reject.list,"))
+
     def test_build_is_reproducible_and_every_remote_rule_is_no_resolve(self):
         self.assertEqual(rules.render(), rules.render())
         snippet = rules.render()["surge-rules.conf"]

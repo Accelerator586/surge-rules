@@ -13,7 +13,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parents[1]
 TYPES = {"DOMAIN", "DOMAIN-SUFFIX"}
 # Service groups precede the general proxy override, and all precede CN.
-ORDER = ["cn-allow", "reject", "ai", "apple", "parsec", "encrypted-sni", "proxy", "cn"]
+ORDER = ["cn-allow", "proxy-allow", "reject", "ai", "apple", "parsec", "encrypted-sni", "proxy", "cn"]
 
 
 def read_json(path):
@@ -68,6 +68,8 @@ def parse(text, *, group, policy, upstream=False):
             raise ValueError(f"{group}:{number}: Forbidden rule type: {kind}")
         if len(parts) != 2:
             raise ValueError(f"{group}:{number}: Expected TYPE,domain; no policy or flags")
+        if group == "proxy-allow" and kind != "DOMAIN":
+            raise ValueError(f"{group}:{number}: Pre-adblock proxy exceptions require exact DOMAIN rules")
         name = parts[1].rstrip(".").lower().encode("idna").decode("ascii")
         if name == policy["ignored_source_domain"] or name in excluded:
             if not upstream:
@@ -135,7 +137,7 @@ def render(root=ROOT):
                                           "source_audit": audit})
     base = f"https://raw.githubusercontent.com/{policy['repository']}/main/dist"
     lines = ["# Insert into your existing [Rule] section; keep private LAN/home rules locally.",
-             "# Put cn-allow.list BEFORE any external advertising rules.",
+             "# Put cn-allow.list and proxy-allow.list BEFORE any external advertising rules.",
              "# Put the remaining subscriptions AFTER external advertising rules.",
              "# Keep the existing Figma-specific rules before these general service rules."]
     for group in ORDER:

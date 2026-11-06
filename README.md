@@ -9,6 +9,7 @@
 | 文件 | Surge 分组 | 用途 |
 | --- | --- | --- |
 | `dist/cn-allow.list` | `CN` | 已确认的广告误拦截例外，放在外部广告规则前 |
+| `dist/proxy-allow.list` | `Proxy` | 开发控制台及 API 的精确代理例外，放在外部广告规则前 |
 | `dist/reject.list` | `REJECT` | 少量个人广告拦截补充 |
 | `dist/ai.list` | `AI-Services` | AI 服务及已有的 Discord / Midjourney 分类 |
 | `dist/apple.list` | `Apple` | Apple 服务 |
@@ -25,7 +26,7 @@
 
 1. 保留本机的 `[Proxy]` 和 `[Proxy Group]`，确认存在上表的分组。分组的直连/代理选择仍由本机控制。
 2. 保留本机的局域网、回家网段和私人例外；IP 规则引用保持 `no-resolve`。
-3. 将 `dist/surge-rules.conf` 中的规则加入现有 `[Rule]`。其中 `cn-allow.list` 必须放在所有外部广告规则之前，其他订阅放在外部广告规则之后。它是规则片段，不是完整配置，也不能作为模块导入。
+3. 将 `dist/surge-rules.conf` 中的规则加入现有 `[Rule]`。其中 `cn-allow.list` 和 `proxy-allow.list` 必须放在所有外部广告规则之前，其他订阅放在外部广告规则之后。它是规则片段，不是完整配置，也不能作为模块导入。
 4. 保留现有 Figma 专属规则，并放在通用代理/CN 规则之前。移除被替换的旧 CN/AI/Apple 订阅，以免旧的宽泛直连规则继续抢先命中。
 5. `[Rule]` 只有一个最后的 `FINAL,Proxy,dns-failed`。使用规则模式。
 
@@ -39,7 +40,7 @@
 RULE-SET,https://raw.githubusercontent.com/Accelerator586/surge-rules/main/dist/cn.list,CN,no-resolve,update-interval=3600
 ```
 
-完整广告拦截并未包含在仅有少量补充的 `reject.list` 中。可继续单独订阅一套广告主规则，放在 `cn-allow.list` 之后、其他服务规则之前，并避免同时堆叠多套广告主规则。仅将已确认的误拦截域名放入 `rules/cn-allow.list`，不要将整个 CN 集合移到广告规则前。仓库不启用 MITM，也不修改本机的解密设置。
+完整广告拦截并未包含在仅有少量补充的 `reject.list` 中。可继续单独订阅一套广告主规则，放在 `cn-allow.list` / `proxy-allow.list` 之后、其他服务规则之前，并避免同时堆叠多套广告主规则。仅将已确认的误拦截域名放入前置例外，不要将整个 CN 集合或 Google 全部服务移到广告规则前。`proxy-allow.list` 只接受精确的 DOMAIN 规则。仓库不启用 MITM，也不修改本机的解密设置。
 
 `dist/validation.conf` 仅用于 Surge 语法检查。它将所有组指向 DIRECT，不能用作生产代理配置。
 
@@ -92,6 +93,8 @@ python3 -m unittest discover -s tests -v
 小米账号、互联和设备服务进入 CN。macOS“小米互联服务”的整个应用直连例外及其作用范围，见 [小米服务说明](docs/XIAOMI.md)。
 
 微信主程序、内置网页、小程序和辅助进程整体通过 CN 的本机例外，见 [微信服务说明](docs/WECHAT.md)。
+
+Firebase / Google Analytics 开发控制台被广告规则误拦截时，使用精确的前置代理例外，见 [Firebase 控制台说明](docs/FIREBASE.md)。
 
 可以在 GitHub 提交 Routing correction issue，也可以在 Codex 中说明“哪个公开域名应进入哪个组”。维护时补充规则和对应的回归案例，检查通过后提交 PR。
 

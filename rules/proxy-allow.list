@@ -1,0 +1,7 @@
+# Exact developer-console/API exceptions; evaluate before external ad blocking.
+# Do not replace these with a google.com suffix or unblock general collection hosts.
+DOMAIN,analytics.google.com
+DOMAIN,firebaseanalytics.googleapis.com
+DOMAIN,analyticsadmin.googleapis.com
+DOMAIN,analyticsdata.googleapis.com
+DOMAIN,analyticsreporting.googleapis.com
