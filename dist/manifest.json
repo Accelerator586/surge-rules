@@ -9,12 +9,12 @@
     "parsec": 3,
     "encrypted-sni": 1,
     "proxy": 11,
-    "cn": 873
+    "cn": 874
   },
   "source_audit": {
     "cn": {
-      "sha256": "33346c9173e9af4230d654eec45c37154c17e8d0240977eb853f535abce3858e",
-      "accepted": 859,
+      "sha256": "0af51e348f438c4e66dce60f132e20aa7bac476664591f8ba383ed62e28819ed",
+      "accepted": 860,
       "skipped": {
         "DOMAIN-WILDCARD": 1,
         "EXCLUDED": 10,
