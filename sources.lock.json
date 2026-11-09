@@ -6,7 +6,7 @@
       "id": "cn",
       "url": "https://ruleset.skk.moe/List/non_ip/domestic.conf",
       "snapshot": "vendor/sukka/domestic.conf",
-      "sha256": "33346c9173e9af4230d654eec45c37154c17e8d0240977eb853f535abce3858e",
+      "sha256": "0af51e348f438c4e66dce60f132e20aa7bac476664591f8ba383ed62e28819ed",
       "initial_snapshot_url": "https://raw.githubusercontent.com/SukkaLab/ruleset.skk.moe/fa49240ecc8567c79319ff347e8cd04c9b940939/List/non_ip/domestic.conf",
       "minimum_domains": 100
     },
