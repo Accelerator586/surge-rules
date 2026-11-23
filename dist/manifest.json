@@ -4,17 +4,17 @@
     "cn-allow": 1,
     "proxy-allow": 42,
     "reject": 4,
-    "ai": 65,
+    "ai": 70,
     "apple": 16,
     "parsec": 3,
     "encrypted-sni": 1,
     "proxy": 11,
-    "cn": 873
+    "cn": 876
   },
   "source_audit": {
     "cn": {
-      "sha256": "33346c9173e9af4230d654eec45c37154c17e8d0240977eb853f535abce3858e",
-      "accepted": 859,
+      "sha256": "b80c6ce2b79f3a4ec5288f4297f8ddee4f2ba5e0a42487fe99e1b58d6517e2d6",
+      "accepted": 862,
       "skipped": {
         "DOMAIN-WILDCARD": 1,
         "EXCLUDED": 10,
@@ -22,8 +22,8 @@
       }
     },
     "ai": {
-      "sha256": "055e56209c88a9306be210813e9e3ef175fdff4b90aaf05768953673bfbc9aea",
-      "accepted": 51,
+      "sha256": "9bb1deda142ba4e15f17a8bb33fb3154928bbd6fece9ba7b9aa9a3471378b318",
+      "accepted": 56,
       "skipped": {
         "DOMAIN-KEYWORD": 2,
         "EXCLUDED": 2,
