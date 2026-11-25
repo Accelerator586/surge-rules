@@ -4,6 +4,7 @@
   "groups": [
     "cn-allow",
     "proxy-allow",
+    "google-ai",
     "proxy",
     "reject",
     "ai",
@@ -15,6 +16,7 @@
   "policies": {
     "cn-allow": "CN",
     "proxy-allow": "Developer",
+    "google-ai": "Gemini",
     "proxy": "Proxy",
     "reject": "REJECT",
     "ai": "AI-Services",

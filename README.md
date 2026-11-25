@@ -11,6 +11,7 @@
 | `dist/cn-allow.list` | `CN` | 已确认的广告误拦截例外，放在外部广告规则前 |
 | `dist/proxy-allow.list` | `Developer` | 开发控制台、登录及数据 API 的精确代理例外，放在外部广告规则前 |
 | `dist/reject.list` | `REJECT` | 少量个人广告拦截补充 |
+| `dist/google-ai.list` | `Gemini` | Gemini、NotebookLM 及 Gemini 开发服务的入口、静态资源和专用 API，先于通用 AI 分类 |
 | `dist/ai.list` | `AI-Services` | AI 服务及已有的 Discord / Midjourney 分类 |
 | `dist/apple.list` | `Apple` | Apple 服务 |
 | `dist/parsec.list` | `Parsec` | Parsec 服务 |
@@ -31,6 +32,8 @@
 5. `[Rule]` 只有一个最后的 `FINAL,Proxy,dns-failed`。使用规则模式。
 
 `Developer` 默认跟随主线路，例如在 `[Proxy Group]` 中加入 `Developer = select, Master-Router`。旧配置如果仍将 `proxy-allow.list` 指向 Proxy，也能继续读取同一份域名列表；要独立切换开发者出口时，增加 Developer 分组并修改引用处的策略。
+
+`Gemini` 独立选择适用的代理出口，例如 `Gemini = select, <preferred proxy>, <alternate proxy>`。主站与消息 API 应统一使用这个分组。已有配置新增订阅前需先创建 `Gemini` 分组，详见 [Google AI 服务说明](docs/GOOGLE-AI.md)。
 
 订阅文件基址：
 

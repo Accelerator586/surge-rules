@@ -24,7 +24,7 @@ class RulesTest(unittest.TestCase):
                  "www.taobao.com": "cn", "www.qq.com": "cn", "api.deepseek.com": "cn",
                  "api.openai.com": "ai", "api.anthropic.com": "ai", "openrouter.ai": "ai",
                  "cursor.com": "ai", "api2.cursor.sh": "ai", "perplexity.ai": "ai",
-                 "gemini.google.com": "ai", "generativelanguage.googleapis.com": "ai",
+                 "gemini.google.com": "google-ai", "generativelanguage.googleapis.com": "google-ai",
                  "copilot.microsoft.com": "ai", "api.github.com": "proxy",
                  "github.com": "proxy", "stripe.com": "proxy", "www.apple.com": "apple",
                  "icloud.com": "apple", "parsec.app": "parsec",
@@ -39,6 +39,25 @@ class RulesTest(unittest.TestCase):
                      "unknown-service.com.cn", "203.0.113.123", "2001:db8::123"]:
             with self.subTest(host=host):
                 self.assertEqual(rules.explain(host, self.groups)[0], "final")
+
+    def test_google_ai_pages_redirects_and_message_apis_share_one_policy(self):
+        self.assertEqual(self.policy["policies"]["google-ai"], "Gemini")
+        for host in ["gemini.google.com", "gemini.gstatic.com", "gemini.google",
+                     "geminiweb-pa.clients6.google.com", "geminiweb-pa.clients.google.com",
+                     "notebook.google.com", "notebook.google", "notebooklm.google",
+                     "notebooklm.google.com", "notebooklm-pa.googleapis.com",
+                     "notebooklm.googleapis.com", "labstailwind.pa.googleapis.com",
+                     "aistudio.google.com", "alkalimakersuite-pa.clients6.google.com",
+                     "generativelanguage.googleapis.com"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "google-ai")
+        for host in ["www.google.com", "unrelated.clients6.google.com",
+                     "unrelated.googleapis.com", "chatgpt.com", "claude.ai"]:
+            with self.subTest(host=host):
+                self.assertNotEqual(rules.explain(host, self.groups)[0], "google-ai")
+        self.assertEqual(rules.explain("notebook.google.com.attacker.invalid", self.groups)[0], "final")
+        snippet = rules.render()["surge-rules.conf"]
+        self.assertLess(snippet.index("/google-ai.list,"), snippet.index("/ai.list,"))
 
     def test_xiaomi_account_interconnect_and_device_services_use_cn(self):
         for host in ["account.xiaomi.com", "api.account.xiaomi.com",

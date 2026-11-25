@@ -13,7 +13,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parents[1]
 TYPES = {"DOMAIN", "DOMAIN-SUFFIX"}
 # Service groups precede the general proxy override, and all precede CN.
-ORDER = ["cn-allow", "proxy-allow", "reject", "ai", "apple", "parsec", "encrypted-sni", "proxy", "cn"]
+ORDER = ["cn-allow", "proxy-allow", "reject", "google-ai", "ai", "apple", "parsec", "encrypted-sni", "proxy", "cn"]
 
 
 def read_json(path):
