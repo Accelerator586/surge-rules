@@ -26,3 +26,14 @@ DOMAIN,labstailwind.pa.googleapis.com
 DOMAIN,robinfrontend-pa.googleapis.com
 DOMAIN,proactivebackend-pa.googleapis.com
 DOMAIN,generativelanguage.googleapis.com
+# Antigravity IDE and its Google AI coding backends.
+DOMAIN-SUFFIX,antigravity.google
+DOMAIN-SUFFIX,antigravity-unleash.goog
+DOMAIN,antigravity-pa.googleapis.com
+DOMAIN,antigravity.googleapis.com
+DOMAIN,daily-cloudcode-pa.googleapis.com
+DOMAIN,cloudcode-pa.googleapis.com
+DOMAIN,cloudaicompanion.googleapis.com
+DOMAIN,aicode.googleapis.com
+DOMAIN,aida.googleapis.com
+DOMAIN,jetski-webchannel.googleapis.com
