@@ -51,6 +51,14 @@ class RulesTest(unittest.TestCase):
                      "generativelanguage.googleapis.com"]:
             with self.subTest(host=host):
                 self.assertEqual(rules.explain(host, self.groups)[0], "google-ai")
+        for host in ["antigravity.google", "api.antigravity.google",
+                     "antigravity-unleash.goog", "antigravity-pa.googleapis.com",
+                     "antigravity.googleapis.com", "daily-cloudcode-pa.googleapis.com",
+                     "cloudcode-pa.googleapis.com", "cloudaicompanion.googleapis.com",
+                     "aicode.googleapis.com", "aida.googleapis.com",
+                     "jetski-webchannel.googleapis.com"]:
+            with self.subTest(host=host):
+                self.assertEqual(rules.explain(host, self.groups)[0], "google-ai")
         for host in ["www.google.com", "unrelated.clients6.google.com",
                      "unrelated.googleapis.com", "chatgpt.com", "claude.ai"]:
             with self.subTest(host=host):

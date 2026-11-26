@@ -6,7 +6,10 @@
 
 ## 来源
 
+Antigravity 的主站、专用 API 与 Google AI 编程后端也进入同一分组。实际连接确认其 `language_server` 使用 `aicode.googleapis.com` 和 `daily-cloudcode-pa.googleapis.com`，应用日志还记录了 `jetski-webchannel.googleapis.com`。这些请求先前落到通用代理出口，与 Gemini 分组选定的出口不同。共享的登录和 Play 接口仍保持原有分类。
+
 - [Google 官方 Gemini 防火墙说明](https://knowledge.workspace.google.com/admin/generative-ai/gemini-app/gemini-app-firewall-settings)：说明服务依赖多个主机，连接方式可能随浏览器和网络变化。
+- [Google Antigravity 文档](https://antigravity.google/docs/enterprise/)：服务与网络配置参考；本列表只覆盖已纳入维护的公开服务域名，不代表企业部署所需的完整允许列表。
 - [MetaCubeX Google Gemini 分类](https://github.com/MetaCubeX/meta-rules-dat/blob/meta/geo/geosite/classical/google-gemini.list)：人工核对后的专用服务域名与 API 主机参考。这里只采用与 Gemini、NotebookLM 及 Gemini 开发服务有关的条目。
 - [Gemini](https://gemini.google.com/)、[NotebookLM](https://notebooklm.google.com/)、[NotebookLM 入口](https://notebooklm.google/) 和 [Gemini API 文档](https://ai.google.dev/gemini-api/docs)：公开产品入口和开发文档。
 

@@ -11,7 +11,7 @@
 | `dist/cn-allow.list` | `CN` | 已确认的广告误拦截例外，放在外部广告规则前 |
 | `dist/proxy-allow.list` | `Developer` | 开发控制台、登录及数据 API 的精确代理例外，放在外部广告规则前 |
 | `dist/reject.list` | `REJECT` | 少量个人广告拦截补充 |
-| `dist/google-ai.list` | `Gemini` | Gemini、NotebookLM 及 Gemini 开发服务的入口、静态资源和专用 API，先于通用 AI 分类 |
+| `dist/google-ai.list` | `Gemini` | Gemini、NotebookLM、Antigravity 及 Gemini 开发服务的入口、静态资源和专用 API，先于通用 AI 分类 |
 | `dist/ai.list` | `AI-Services` | AI 服务及已有的 Discord / Midjourney 分类 |
 | `dist/apple.list` | `Apple` | Apple 服务 |
 | `dist/parsec.list` | `Parsec` | Parsec 服务 |
